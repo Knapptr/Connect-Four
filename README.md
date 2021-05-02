@@ -3,6 +3,7 @@
 ## About
 
 This is really just a proof of concept. The goal was to decouple 'game' logic as much as possible from UI logic in react.
+I also started learning/using Typescript! Exciting!
 
 ## Goals
 
