@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/Connect-Four/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/Connect-Four/static/js/main.87ed5a50.chunk.js",
-    "main.js.map": "/Connect-Four/static/js/main.87ed5a50.chunk.js.map",
+    "main.js": "/Connect-Four/static/js/main.ad45b20b.chunk.js",
+    "main.js.map": "/Connect-Four/static/js/main.ad45b20b.chunk.js.map",
     "runtime-main.js": "/Connect-Four/static/js/runtime-main.fbb4fc60.js",
     "runtime-main.js.map": "/Connect-Four/static/js/runtime-main.fbb4fc60.js.map",
-    "static/js/2.4ae6d4ad.chunk.js": "/Connect-Four/static/js/2.4ae6d4ad.chunk.js",
-    "static/js/2.4ae6d4ad.chunk.js.map": "/Connect-Four/static/js/2.4ae6d4ad.chunk.js.map",
+    "static/js/2.a85e45d6.chunk.js": "/Connect-Four/static/js/2.a85e45d6.chunk.js",
+    "static/js/2.a85e45d6.chunk.js.map": "/Connect-Four/static/js/2.a85e45d6.chunk.js.map",
     "static/js/3.944ac4cb.chunk.js": "/Connect-Four/static/js/3.944ac4cb.chunk.js",
     "static/js/3.944ac4cb.chunk.js.map": "/Connect-Four/static/js/3.944ac4cb.chunk.js.map",
     "index.html": "/Connect-Four/index.html",
     "static/css/main.9d5b29c0.chunk.css.map": "/Connect-Four/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.4ae6d4ad.chunk.js.LICENSE.txt": "/Connect-Four/static/js/2.4ae6d4ad.chunk.js.LICENSE.txt"
+    "static/js/2.a85e45d6.chunk.js.LICENSE.txt": "/Connect-Four/static/js/2.a85e45d6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.fbb4fc60.js",
-    "static/js/2.4ae6d4ad.chunk.js",
+    "static/js/2.a85e45d6.chunk.js",
     "static/css/main.9d5b29c0.chunk.css",
-    "static/js/main.87ed5a50.chunk.js"
+    "static/js/main.ad45b20b.chunk.js"
   ]
 }
