@@ -9,18 +9,30 @@ import {
 
 const CreateGame = (
   playerInitData: PlayerInit[],
-  boardSize: [number, number],
+  boardSize: number[],
   eventManager: EventsManagerInterface
 ) => {
+  let gameOver: boolean = false;
+  let endState: false | string = false;
   const players: GamePlayer[] = Array.from(
     playerInitData,
     (playerData: PlayerInit) => CreatePlayer(playerData)
   );
 
   const getPlayers = () => {
-    return {
-      players: players,
-    };
+    const playerList: {
+      name: string;
+      id: string;
+      color: "red" | "black";
+    }[] = [];
+    players.forEach((player) => {
+      playerList.push({
+        name: player.getName(),
+        id: player.id,
+        color: player.getColor(),
+      });
+    });
+    return playerList;
   };
   const getPlayerNames = () => {
     const names: string[] = [];
@@ -36,7 +48,11 @@ const CreateGame = (
     eventManager.trigger({ action: "nameChange", payload: getPlayerNames() });
   };
 
-  const board: GameBoard = CreateBoard(...boardSize);
+  let board: GameBoard = CreateBoard(boardSize[0], boardSize[1]);
+
+  const getBoard = () => {
+    return board.getBoard();
+  };
 
   let turnCount = 0;
 
@@ -48,20 +64,51 @@ const CreateGame = (
     if (currentTurnIndex > players.length - 1) {
       currentTurnIndex = 0;
     }
-    eventManager.trigger({ action: "turnChange", payload: currentTurnIndex });
+    eventManager.trigger({ action: "turnChange", payload: getCurrentPlayer() });
   };
   const isGameOver = () => {
-    return board.checkForFourInRow();
+    if (board.checkForFourInRow()) {
+      gameOver = true;
+      endState = getCurrentPlayer().id;
+    } else {
+      if (board.checkIfFilled()) {
+        gameOver = true;
+        endState = "tie";
+      }
+    }
+    if (gameOver) {
+      eventManager.trigger({ action: "gameEndChange", payload: getEndState() });
+    }
+    return gameOver;
+  };
+
+  const getEndState = () => {
+    return endState;
   };
 
   const getCurrentPlayer = () => {
-    return players[currentTurnIndex];
+    let player = players[currentTurnIndex];
+    let name = player.getName();
+    let id = player.id;
+    return {
+      name,
+      id,
+    };
   };
+
   const getTurnCount = () => {
     return turnCount;
   };
 
+  const getPlayerColorByID = (id: string) => {
+    let players = getPlayers();
+    let player = players.filter((p) => p.id === id)[0];
+    let color = player.color;
+    return color;
+  };
   const takeTurn = (col: number) => {
+    if (board.checkIfColFull(col)) return;
+    if (gameOver) return;
     let currentPlayerID = players[currentTurnIndex].id;
     board.placePiece(col, currentPlayerID);
     eventManager.trigger({ action: "boardChange", payload: board.getBoard() });
@@ -72,6 +119,17 @@ const CreateGame = (
     }
     advanceTurn();
   };
+  const resetGame = () => {
+    board = CreateBoard(boardSize[0], boardSize[1]);
+    turnCount = 0;
+    gameOver = false;
+    endState = false;
+    eventManager.trigger({ action: "boardChange", payload: board.getBoard() });
+    eventManager.trigger({ action: "gameEndChange", payload: getEndState() });
+    eventManager.trigger({ action: "turnChange", payload: getCurrentPlayer() });
+    eventManager.trigger({ action: "turnChange", payload: getCurrentPlayer() });
+    eventManager.trigger({ action: "gameOver", payload: false });
+  };
 
   return {
     takeTurn,
@@ -81,6 +139,10 @@ const CreateGame = (
     getTurnCount,
     getCurrentPlayer,
     isGameOver,
+    getBoard,
+    getPlayerColorByID,
+    getEndState,
+    resetGame,
   };
 };
 

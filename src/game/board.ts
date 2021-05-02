@@ -1,4 +1,3 @@
-import { createSecureContext } from "node:tls";
 import { BoardInit, Cell, PlayerID } from "./types";
 
 const CreateBoard = (width: number, height: number) => {
@@ -38,6 +37,9 @@ const CreateBoard = (width: number, height: number) => {
     board[col][rowIndex].occupied = playerID;
   };
 
+  const checkIfFilled = () => {
+    return board.every((col) => col.every((cell) => cell.occupied));
+  };
   const checkForFour = (arr: Cell[]) => {
     // Analyzes an array, and checks if 4 cells in a row in the array are equal
     let consecutive = 1;
@@ -168,6 +170,8 @@ const CreateBoard = (width: number, height: number) => {
     getBoard,
     placePiece,
     checkForFourInRow,
+    checkIfFilled,
+    checkIfColFull,
   };
 };
 

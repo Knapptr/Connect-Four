@@ -19,14 +19,17 @@ export type BoardInit = Cell[][];
 
 //events
 
-export type Callback = (data?: {}) => void;
-export type Trigger = (data: { action: string; payload?: {} }) => void;
+export type Callback = (data?: object | number | [] | boolean | string) => void;
+export type Trigger = (data: {
+  action: string;
+  payload?: object | number | [] | boolean | string;
+}) => void;
 export type Adder = (eventName: string, fn: Callback) => void;
 export type Remover = (eventName: string, fn: Callback) => void;
 
-export type Events = {
+export interface Events {
   [eventName: string]: Callback[];
-};
+}
 export interface EventsManagerInterface {
   add: Adder;
   remove: Remover;
